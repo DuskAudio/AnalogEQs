@@ -1,2 +1,2 @@
 # AnalogEQs
-Simple Eq to mim analog EQs - Learning DSP and JUCE
+Simple Eq to mimic analog EQs - Learning DSP and JUCE
