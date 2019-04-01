@@ -10,6 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <string>
 
 //==============================================================================
 VolumeKnob1AudioProcessor::VolumeKnob1AudioProcessor()
@@ -108,42 +109,33 @@ void VolumeKnob1AudioProcessor::prepareToPlay(double sampleRate, int samplesPerB
 	lastSamplerate = sampleRate;
 
 	dsp::ProcessSpec hpf, lmf, hmf, lpf;
+	std::vector<dsp::ProcessSpec*> filters;
+	filters.push_back(&hpf);
+	filters.push_back(&lmf);
+	filters.push_back(&hmf);
+	filters.push_back(&lpf);
 
+	for (auto* f : filters)
+	{
+		f->sampleRate = sampleRate;
+		f->maximumBlockSize = samplesPerBlock;
+		f->numChannels = getTotalNumOutputChannels();
+	}
 
-	//HighPass
-	hpf.sampleRate = sampleRate;
-	hpf.maximumBlockSize = samplesPerBlock;
-	hpf.numChannels = getTotalNumOutputChannels();
-
+	//Prepare the Filters
+	
 	highPassFilter.prepare(hpf);
-	highPassFilter.reset();
-
-	//Low Mid Frequency
-	lmf.sampleRate = sampleRate;
-	lmf.maximumBlockSize = samplesPerBlock;
-	lmf.numChannels = getTotalNumOutputChannels();
-
 	lowMidFrequency.prepare(lmf);
-	lowMidFrequency.reset();
-
-	//High Mid Frequency
-	hmf.sampleRate = sampleRate;
-	hmf.maximumBlockSize = samplesPerBlock;
-	hmf.numChannels = getTotalNumOutputChannels();
-
 	highMidFrequency.prepare(lmf);
-	highMidFrequency.reset();
-
-	//LowPassFilter
-	lpf.sampleRate = sampleRate;
-	lpf.maximumBlockSize = samplesPerBlock;
-	lpf.numChannels = getTotalNumOutputChannels();
-
 	lowPassFilter.prepare(lpf);
+	
+	//reset the Filters
+	highPassFilter.reset();
+	lowMidFrequency.reset();
+	highMidFrequency.reset();
 	lowPassFilter.reset();
-
 	updateFilter();
-
+	
 }
 //==============================================================================
 void VolumeKnob1AudioProcessor::releaseResources()
