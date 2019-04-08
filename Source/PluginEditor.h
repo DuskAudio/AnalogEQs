@@ -10,12 +10,16 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "PluginProcessor.h"
+#include "Knobs.h"
+
+
 
 //==============================================================================
 /**
 */
+
 class VolumeKnob1AudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
@@ -27,11 +31,11 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-
     VolumeKnob1AudioProcessor& processor;
 	//==============================================================================
 
 	// Sliders for Frequency controls
+	
 	Slider hpf_slider;
 	Slider lowMid_Slider;
 	Slider highMid_Slider;
@@ -47,9 +51,8 @@ public:
 	
 	Image background;
 	
-	
 private:
-
+	BasicLookAndFeel otherLookAndFeel;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> hpf_Value;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> lowMid_Value;
 	std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment> highMid_Value;

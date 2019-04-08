@@ -4,6 +4,10 @@
               companyName="Dusk Audio" version="1.0.0" pluginFormats="buildVST3"
               pluginVST3Category="Fx,Modulation" pluginName="DuskAudioEQ" pluginDesc="Analog Filters">
   <MAINGROUP id="srYP5T" name="Dusk Audio EQ">
+    <GROUP id="{1FB4A675-ECE5-0C0F-5A2B-75EC17CF3714}" name="GUI">
+      <FILE id="IEKNsw" name="Knobs.cpp" compile="1" resource="0" file="Source/Knobs.cpp"/>
+      <FILE id="o54ZV5" name="Knobs.h" compile="0" resource="0" file="Source/Knobs.h"/>
+    </GROUP>
     <GROUP id="{8DE23023-2B71-A03D-10EA-1C76E368D645}" name="Images">
       <FILE id="SK2o7e" name="bg_duskEq.png" compile="0" resource="1" file="Images/bg_duskEq.png"/>
     </GROUP>

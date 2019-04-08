@@ -11,9 +11,12 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+
+
 //==============================================================================
 VolumeKnob1AudioProcessorEditor::VolumeKnob1AudioProcessorEditor(VolumeKnob1AudioProcessor& p)
 	: AudioProcessorEditor(&p), processor(p)
+
 {
 	hpf_Value = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treestate, "hpf", hpf_slider);
 	lowMid_Value = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treestate, "lmf", lowMid_Slider);
@@ -22,12 +25,15 @@ VolumeKnob1AudioProcessorEditor::VolumeKnob1AudioProcessorEditor(VolumeKnob1Audi
 
 
 	//backgroundImage = ImageCache::getFromMemory(BinaryData::background_jpg, BinaryData::background_jpgSize);
+	
+	setLookAndFeel(&otherLookAndFeel);
 
 	//========================HPF================================
 
 	//Sliders
+	
 	hpf_slider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-	hpf_slider.setColour(Slider::thumbColourId, Colours::orange);
+	//hpf_slider.setColour(Slider::thumbColourId, Colours::orange);
 	hpf_slider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 20);
 	hpf_slider.setTextValueSuffix(" Hz");
 	//hpf_slider.setRange(20, 140, 10);
@@ -42,8 +48,9 @@ VolumeKnob1AudioProcessorEditor::VolumeKnob1AudioProcessorEditor(VolumeKnob1Audi
 	//========================LM Band============================
 
 	//Slider
+	
 	lowMid_Slider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-	lowMid_Slider.setColour(Slider::thumbColourId, Colours::mediumpurple);
+	//lowMid_Slider.setColour(Slider::thumbColourId, Colours::mediumpurple);
 	lowMid_Slider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 20);
 	lowMid_Slider.setTextValueSuffix(" dB");
 	//lowMid_Slider.setRange(-6.0, 6.0, 0.5);
@@ -59,8 +66,9 @@ VolumeKnob1AudioProcessorEditor::VolumeKnob1AudioProcessorEditor(VolumeKnob1Audi
 	//========================HM Band============================
 
 	//Slider
+	
 	highMid_Slider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-	highMid_Slider.setColour(Slider::thumbColourId, Colours::mediumpurple);
+	//highMid_Slider.setColour(Slider::thumbColourId, Colours::mediumpurple);
 	highMid_Slider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 20);
 	highMid_Slider.setTextValueSuffix(" dB");
 	//highMid_Slider.setRange(-6, 6, 0.5);
@@ -77,8 +85,9 @@ VolumeKnob1AudioProcessorEditor::VolumeKnob1AudioProcessorEditor(VolumeKnob1Audi
 	//=======================LPF=================================
 
 	//Slider
+	
 	lpf_Slider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-	lpf_Slider.setColour(Slider::thumbColourId, Colours::orange);
+	//lpf_Slider.setColour(Slider::thumbColourId, Colours::orange);
 	lpf_Slider.setTextBoxStyle(Slider::TextBoxBelow, false, 50, 20);
 	lpf_Slider.setTextValueSuffix(" KHz");
 	//lpf_Slider.setRange(14, 20, 1);
@@ -92,12 +101,12 @@ VolumeKnob1AudioProcessorEditor::VolumeKnob1AudioProcessorEditor(VolumeKnob1Audi
 	lpf_Label.setJustificationType(juce::Justification::centred);
 	addAndMakeVisible(&lpf_Slider);
 
-	//background image
-	background = ImageCache::getFromMemory(BinaryData::bg_duskEq_png, BinaryData::bg_duskEq_pngSize);
 
 	//===========================================================
 	setSize(600, 250);
 	setResizable(true, true);
+	//background image
+	background = ImageCache::getFromMemory(BinaryData::bg_duskEq_png, BinaryData::bg_duskEq_pngSize);
 
 }
 
@@ -115,24 +124,20 @@ void VolumeKnob1AudioProcessorEditor::paint(Graphics& g)
 	/*g.setColour(Colours::orange);
 	g.drawLine(30,220,570,220, 2.0f);*/
 
-	auto outerLine = getLocalBounds().toFloat().reduced(10.0f);
+	/*auto outerLine = getLocalBounds().toFloat().reduced(10.0f);
 	g.setColour(Colours::orange);
 	g.drawRoundedRectangle(outerLine, 5.0f, 3.0f);
 
 
 	auto innerLine = getLocalBounds().toFloat().reduced(20.0f);
 	g.setColour(Colours::mediumpurple);
-	g.drawRoundedRectangle(innerLine, 5.0f, 3.0f);
+	g.drawRoundedRectangle(innerLine, 5.0f, 3.0f);*/
 
 
-	g.setColour(Colours::orange);
+	g.setColour(Colours::white);
 	g.setFont(20.0f);
 	g.drawFittedText("-Analog Filters-", getLocalBounds().reduced(30), Justification::centredBottom, 1);
-
-
-
-
-
+	
 }
 
 //==============================================================================
